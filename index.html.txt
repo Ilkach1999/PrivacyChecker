@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>🔍 Privacy Checker</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0D1117, #161B22);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 16px 120px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .header { text-align: center; margin-bottom: 28px; }
+        .header h1 { font-size: 44px; color: #3FB950; }
+        .header p { color: #8B949E; font-size: 14px; margin-top: 4px; }
+
+        .card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            animation: fade 0.3s ease;
+        }
+
+        @keyframes fade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status { font-weight: 900; font-size: 16px; }
+
+        .safe { color: #3FB950; }
+        .warn { color: #D29922; }
+        .danger { color: #F85149; }
+
+        .detail { font-size: 13px; color: #8B949E; margin-top: 6px; word-break: break-all; }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            margin-top: 8px;
+            background: #21262D;
+            color: #fff;
+        }
+
+        .btn:active { transform: scale(0.96); opacity: 0.8; }
+        .btn-green { background: linear-gradient(135deg, #238636, #2EA043); }
+
+        .hidden { display: none !important; }
+
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3FB950;
+            color: #000;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 30px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🔍 Privacy Check</h1>
+        <p>проверка слежки • что видит браузер</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">🎤 Микрофон</div>
+        <div class="status" id="mic-status">Проверка...</div>
+        <div class="detail" id="mic-detail"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">📷 Камера</div>
+        <div class="status" id="cam-status">Проверка...</div>
+        <div class="detail" id="cam-detail"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">📍 Геолокация</div>
+        <div class="status" id="geo-status">Проверка...</div>
+        <div class="detail" id="geo-detail"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">🔔 Уведомления / Фон</div>
+        <div class="status" id="notif-status">Проверка...</div>
+        <div class="detail" id="notif-detail"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">🔌 Подключения (WebRTC / IP)</div>
+        <div class="status" id="net-status">Проверка...</div>
+        <div class="detail" id="net-detail"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">🔋 Батарея (фоновая активность)</div>
+        <div class="status" id="battery-status">Проверка...</div>
+        <div class="detail" id="battery-detail"></div>
+    </div>
+
+    <div class="card" style="border-color: rgba(248,81,73,0.3); background: rgba(248,81,73,0.05);">
+        <div class="card-title">📋 Итоговый вердикт</div>
+        <div class="status" id="verdict-status" style="font-size: 22px;">⏳ Анализирую...</div>
+        <div class="detail" id="verdict-detail"></div>
+    </div>
+
+    <button class="btn btn-green" onclick="location.reload()">🔄 ПЕРЕПРОВЕРИТЬ</button>
+    <button id="install-btn" class="btn hidden" onclick="installApp()" style="background: linear-gradient(135deg, #FFD700, #FFB347); color: #000; margin-top: 12px;">📲 УСТАНОВИТЬ ПРИЛОЖЕНИЕ</button>
+
+    <script src="app.js"></script>
+</body>
+</html>
